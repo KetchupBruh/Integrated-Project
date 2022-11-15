@@ -1,0 +1,27 @@
+{
+  "name": "basic-router",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "json-server": "^0.4.2",
+    "vue": "^3.2.25",
+    "vue-fullpage.js": "^0.2.3",
+    "vue-moment": "^4.1.0",
+    "vue-router": "^4.0.14",
+    "vue-sweetalert2": "^5.0.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.2.0",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.13",
+    "tailwindcss": "^3.0.24",
+    "vite": "^2.8.0"
+  }
+}

@@ -1,0 +1,44 @@
+version: "3.3"
+services:
+ database:
+  container_name: sy4-database
+  image: mysql:8.0
+  env_file: ./.env
+  environment:
+    - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+    - MYSQL_DATABASE=$MYSQLDB_DATABASE
+  ports:
+    - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+  volumes:
+    - ./tntdb:/var/lib/mysql
+    - ./src/:/docker-entrypoint-initdb.d
+
+ backend:
+  container_name: sy4-backend
+  image: sy4-backend-img
+  build: ./../TNT-Backend/
+  restart: on-failure
+  ports:
+   - "8080:8080"
+  depends_on:
+   - database 
+
+ frontend:
+  container_name: sy4-frontend
+  image: sy4-frontend-img
+  build: ./../TNT-Frontend/
+  restart: on-failure
+  volumes:
+   - ./../TNT-Frontend/nginx.conf:/etc/nginx/conf.d/default.conf
+  depends_on:
+   - backend
+
+ proxy:
+  container_name: reverse-proxy
+  image: nginx:1.21.6-alpine
+  restart: always
+  volumes:
+   - ./proxy/nginx.conf:/etc/nginx/conf.d/default.conf
+  ports:
+   - "80:80"
+
